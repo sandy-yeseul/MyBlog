@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
 
+import Article from './Article.js';
+
 const app = express();
 const upload = multer({
   dest: "uploads/",
@@ -21,39 +23,42 @@ app.all("*", upload.single("image"), (req, res, next) => {
 app.get("/", (req, res) => {
   res.send("HEllo world");
 });
-app.get("/api/articles", (req, res) => {
+app.get("/api/articles", async (req, res) => {
   //get all articles
-  res.send({
-    articles: {
-      1: {
-        Title: "Blah",
-        Author: "ME",
-        Created: "NOW",
-        Content: "Choeseung has great voice. i love her!",
-      },
-      2: {
-        Title: "Blah",
-        Author: "ME",
-        Created: "NOW",
-        Content: "Choeseung has great voice. i love her!",
-      },
-    },
-  });
+  const articles = await Article.find();
+  res.send(articles)
 });
-app.post("/api/articles", (req, res) => {
+app.post("/api/articles", async(req, res) => {
   //post one article
   //get the content
   //make it in format
   //save in mongoose
+  const article = await new Article(req.body);
+  await article.save();
+  res.send("OK")
 });
-app.get("/api/articles/:id", (req, res) => {
+app.get("/api/articles/:id", async(req, res) => {
   //get one article
+  const id = req.params.id;
+  const article = await Article.findById(id);
+  res.send(article);
 });
-app.put("/api/articles/:id", (req, res) => {
+app.put("/api/articles/:id", async(req, res) => {
   //update one article
+  const id = req.params.id;
+  const article = {
+      title: req.body.title,
+      createdOn: req.body.createdOn,
+      content: req.body.content
+  }
+  const newArticle = await Article.findByIdAndUpdate(id, {$set: article}, {new: true});
+  res.send(newArticle);
 });
-app.delete("/api/articles/:id", (req, res) => {
+app.delete("/api/articles/:id", async (req, res) => {
   //delete one article
+  const id = req.params.id;
+  await Article.findByIdAndRemove(id);
+  res.send("OK")
 });
 mongoose
   .connect("mongodb://localhost/myBlog", {

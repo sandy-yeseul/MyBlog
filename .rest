@@ -1,0 +1,31 @@
+GET http://localhost:2020/api/articles HTTP/1.1
+
+###
+
+POST http://localhost:2020/api/articles HTTP/1.1
+content-type: application/json
+
+{
+    "title" : "Can we just talk",
+    "createdOn" : "2020-01-01",
+    "content" : "feeling lucky"
+}
+
+###
+
+GET http://localhost:2020/api/articles/5fd052bc1e62ef186c463346
+
+###
+
+PUT http://localhost:2020/api/articles/5fd052bc1e62ef186c463346 HTTP/1.1
+content-type: application/json
+
+{
+    "title" : "Don't stop the music",
+    "createdOn" : "2020-10-11",
+    "content" : "DJ DJ DJ PLZ DONT STOP THE MUZIK"
+}
+
+###
+
+DELETE http://localhost:2020/api/articles/5fd052c41e62ef186c463348 HTTP/1.1
