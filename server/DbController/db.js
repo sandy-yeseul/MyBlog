@@ -11,5 +11,7 @@ export const db = mongoose.createConnection("mongodb://localhost/myBlog", {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', () => console.log('db has been connected'))
 const Article = db.model("Article", articleSchema);
 export default Article;
