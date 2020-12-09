@@ -4,12 +4,13 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
-import Article from './DbController/Article.js';
-import callback from './Callback/callback.js';
+import callback from "./Callback/callback.js";
 import {
   allArticles,
-  anArticle
-} from './Controller/controller.js';
+  anArticle,
+  postArticle,
+  updateArticle,deleteArticle,
+} from "./Controller/controller.js";
 
 const app = express();
 const upload = multer({
@@ -29,33 +30,10 @@ app.get("/", (req, res) => {
   res.send("HEllo world");
 });
 app.get("/api/articles", callback(allArticles));
-app.post("/api/articles", async(req, res) => {
-  //post one article
-  //get the content
-  //make it in format
-  //save in mongoose
-  const article = await new Article(req.body);
-  await article.save();
-  res.send("OK")
-});
+app.post("/api/articles", callback(postArticle));
 app.get("/api/articles/:id", callback(anArticle));
-app.put("/api/articles/:id", async(req, res) => {
-  //update one article
-  const id = req.params.id;
-  const article = {
-      title: req.body.title,
-      createdOn: req.body.createdOn,
-      content: req.body.content
-  }
-  const newArticle = await Article.findByIdAndUpdate(id, {$set: article}, {new: true});
-  res.send(newArticle);
-});
-app.delete("/api/articles/:id", async (req, res) => {
-  //delete one article
-  const id = req.params.id;
-  await Article.findByIdAndRemove(id);
-  res.send("OK")
-});
+app.put("/api/articles/:id", callback(updateArticle));
+app.delete("/api/articles/:id", callback(deleteArticle));
 mongoose
   .connect("mongodb://localhost/myBlog", {
     useNewUrlParser: true,

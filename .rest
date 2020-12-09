@@ -6,9 +6,9 @@ POST http://localhost:2020/api/articles HTTP/1.1
 content-type: application/json
 
 {
-    "title" : "Can we just talk",
+    "title" : "from from from ",
     "createdOn" : "2020-01-01",
-    "content" : "feeling lucky"
+    "content" : "to to to"
 }
 
 ###
