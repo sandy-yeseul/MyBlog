@@ -1,4 +1,4 @@
-import Article from "../DbController/Article.js";
+import Article from '../DbController/db.js';
 
 async function allArticles() {
   const articles = await Article.find();

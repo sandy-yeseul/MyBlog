@@ -34,14 +34,5 @@ app.post("/api/articles", callback(postArticle));
 app.get("/api/articles/:id", callback(anArticle));
 app.put("/api/articles/:id", callback(updateArticle));
 app.delete("/api/articles/:id", callback(deleteArticle));
-mongoose
-  .connect("mongodb://localhost/myBlog", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("Mongodb Connected"))
-  .catch((err) => console.error(err));
 
 app.listen(2020, () => console.log("Blog is running on port 2020"));
