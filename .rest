@@ -13,11 +13,11 @@ content-type: application/json
 
 ###
 
-GET http://localhost:2020/api/articles/5fd052bc1e62ef186c463346
+GET http://localhost:2020/api/articles/5fd08f433defc82930595ce8
 
 ###
 
-PUT http://localhost:2020/api/articles/5fd052bc1e62ef186c463346 HTTP/1.1
+PUT http://localhost:2020/api/articles/5fd08f433defc82930595ce8 HTTP/1.1
 content-type: application/json
 
 {
@@ -28,4 +28,4 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:2020/api/articles/5fd0888adf91541278a855e0 HTTP/1.1
+DELETE http://localhost:2020/api/articles/5fd08f433defc82930595ce8 HTTP/1.1
