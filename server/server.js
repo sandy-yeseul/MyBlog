@@ -4,8 +4,12 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
-
-import Article from './Article.js';
+import Article from './DbController/Article.js';
+import callback from './Callback/callback.js';
+import {
+  allArticles,
+  anArticle
+} from './Controller/controller.js';
 
 const app = express();
 const upload = multer({
@@ -20,14 +24,11 @@ app.all("*", upload.single("image"), (req, res, next) => {
   if (req.file) req.body.image = `image/${req.file.filename}`;
   next();
 });
+
 app.get("/", (req, res) => {
   res.send("HEllo world");
 });
-app.get("/api/articles", async (req, res) => {
-  //get all articles
-  const articles = await Article.find();
-  res.send(articles)
-});
+app.get("/api/articles", callback(allArticles));
 app.post("/api/articles", async(req, res) => {
   //post one article
   //get the content
@@ -37,12 +38,7 @@ app.post("/api/articles", async(req, res) => {
   await article.save();
   res.send("OK")
 });
-app.get("/api/articles/:id", async(req, res) => {
-  //get one article
-  const id = req.params.id;
-  const article = await Article.findById(id);
-  res.send(article);
-});
+app.get("/api/articles/:id", callback(anArticle));
 app.put("/api/articles/:id", async(req, res) => {
   //update one article
   const id = req.params.id;
