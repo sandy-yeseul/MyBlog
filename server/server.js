@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
 import callback from "./Callback/callback.js";
