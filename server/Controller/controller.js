@@ -28,7 +28,7 @@ async function get_articleList() {
     if (articles.length === 0) return { code: code.noContent, body: null };
     return { code: code.ok, body: articles };
   } catch (err) {
-    return { code: code.badRequest, body: err.message }; //FIXME body is not a json, need to format somehow json like {message: err.message}
+    return formatErrorMessage(err)
   }
 }
 async function post_article(req) {
@@ -37,7 +37,7 @@ async function post_article(req) {
     const saved = await saveArticle(body);
     return { code: code.created, body: saved };
   } catch (err) {
-    return { code: code.badRequest, body: err.message };
+    return formatErrorMessage(err);
   }
 }
 async function get_article(req) {
@@ -46,7 +46,7 @@ async function get_article(req) {
     const article = await getArticle(id);
     return { code: code.ok, body: article };
   } catch (err) {
-    return { code: code.badRequest, body: err.message };
+    return formatErrorMessage(err);
   }
 }
 async function put_article(req) {
@@ -56,7 +56,7 @@ async function put_article(req) {
     const updated = await updateArticle(id, body);
     return { code: code.created, body: updated };
   } catch (err) {
-    return { code: code.badRequest, body: err.message };
+    return formatErrorMessage(err);
   }
 }
 async function delete_article(req) {
@@ -65,7 +65,7 @@ async function delete_article(req) {
     const deleted = await removeArticle(id);
     return { code: code.ok, body: deleted };
   } catch (err) {
-    return { code: code.badRequest, body: err.message };
+    return formatErrorMessage(err);
   }
 }
 export {
@@ -75,3 +75,9 @@ export {
   put_article,
   delete_article,
 };
+function formatErrorMessage(err){
+  return {
+    code: code.badRequest,
+    body: {message: err.message}
+  }
+}
