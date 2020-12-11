@@ -1,4 +1,10 @@
-import articleDb from "../DbController/dbActions.js";
+import {
+  getArticleList,
+  getArticle,
+  saveArticle,
+  updateArticle,
+  removeArticle,
+} from "../DataHandling/dataHandling.js";
 const code = {
   ok: 200,
   created: 201,
@@ -16,64 +22,51 @@ const code = {
  * doing - no data handling, determine code based on result, format return value
  * if there's error in data handling, accept it, format it to body(no throwing error, error is caught here), set code
  */
-async function allArticles() {
+async function get_articleList() {
   try {
-    const articles = await articleDb.findAll();
+    const articles = await getArticleList();
     if (articles.length === 0) return { code: code.noContent, body: null };
     return { code: code.ok, body: articles };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
   }
 }
-async function postArticle(req) {
+async function post_article(req) {
   try {
-    if (!req.body.title || !req.body.createdOn || !req.body.content)
-      throw new Error("Required information missing");
-    const savedArticle = await articleDb.insert(req.body);
-    if (!savedArticle) throw new Error("didn't saved?");
-    return { code: code.created, body: savedArticle };
+    const saved = await saveArticle(req.body);
+    return { code: code.created, body: saved };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
   }
 }
-async function anArticle(req) {
+async function get_article(req) {
   try {
-    const id = req.params.id;
-    if (!id) throw new Error("Can't find ID");
-    const article = await articleDb.findById(id);
-    if (!article) throw new Error("Couldn't find");
+    const article = await getArticle(req.params.id);
     return { code: code.ok, body: article };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
   }
 }
-async function updateArticle(req) {
+async function put_article(req) {
   try {
-    const id = req.params.id;
-    if (!id) throw new Error("Can't find ID");
-    if (!req.body.title || !req.body.createdOn || !req.body.content)
-      throw new Error("Required information missing");
-    const article = {
-      title: req.body.title,
-      createdOn: req.body.createdOn,
-      content: req.body.content,
-    };
-    const newArticle = await articleDb.update(id, article);
-    if (!newArticle) throw new Error("Couldn't update");
-    return { code: code.created, body: newArticle };
+    const updated = await updateArticle(req.params.id, req.body);
+    return { code: code.created, body: updated };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
   }
 }
-async function deleteArticle(req) {
+async function delete_article(req) {
   try {
-    const id = req.params.id;
-    if (!id) throw new Error("Can't find ID");
-    const deleted = await articleDb.remove(id);
-    if (!deleted) throw new Error("Error on deleting");
+    const deleted = await removeArticle(req.params.id);
     return { code: code.ok, body: deleted };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
   }
 }
-export { allArticles, anArticle, postArticle, updateArticle, deleteArticle };
+export {
+  get_articleList,
+  post_article,
+  get_article,
+  put_article,
+  delete_article,
+};

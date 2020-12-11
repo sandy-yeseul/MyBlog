@@ -10,10 +10,15 @@ const responseHeaders = {
  */
 export default function (controller) {
   return async (req, res) => {
-    const httpRequest = await httpRequestFormat(req);
-    const data = await controller(httpRequest);
-    res.set(responseHeaders); // TODO header need?
-    res.status(data.code).send(data.body); // TODO response 좀 더 다듬기(cookie set || cookieClear 어떻게 대처할것인가?)
+    try {
+      const httpRequest = await httpRequestFormat(req);
+      const data = await controller(httpRequest);
+      res.set(responseHeaders); // TODO header need?
+      res.status(data.code).send(data.body); // TODO response 좀 더 다듬기(cookie set || cookieClear 어떻게 대처할것인가?)
+    } catch (err) {
+      //some internal error that couldn't be handled in controller
+      res.status(500).send(err.message);
+    }
   };
 }
 function httpRequestFormat(req = {}) {

@@ -5,10 +5,11 @@ import cors from "cors";
 import multer from "multer";
 import callback from "./Callback/callback.js";
 import {
-  allArticles,
-  anArticle,
-  postArticle,
-  updateArticle,deleteArticle,
+  get_articleList,
+  post_article,
+  get_article,
+  put_article,
+  delete_article,
 } from "./Controller/controller.js";
 
 const app = express();
@@ -28,10 +29,10 @@ app.all("*", upload.single("image"), (req, res, next) => {
 app.get("/", (req, res) => {
   res.send("HEllo world");
 });
-app.get("/api/articles", callback(allArticles));
-app.post("/api/articles", callback(postArticle));
-app.get("/api/articles/:id", callback(anArticle));
-app.put("/api/articles/:id", callback(updateArticle));
-app.delete("/api/articles/:id", callback(deleteArticle));
+app.get("/api/articles", callback(get_articleList));
+app.post("/api/articles", callback(post_article));
+app.get("/api/articles/:id", callback(get_article));
+app.put("/api/articles/:id", callback(put_article));
+app.delete("/api/articles/:id", callback(delete_article));
 
 app.listen(2020, () => console.log("Blog is running on port 2020"));
