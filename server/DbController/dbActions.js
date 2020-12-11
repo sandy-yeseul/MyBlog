@@ -1,4 +1,5 @@
 import Article from "./db.js";
+// Article.deleteMany({}, ()=>console.log("Delete All Documents within the collection"))
 
 async function findAll() {
   try {

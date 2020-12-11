@@ -5,6 +5,7 @@ const articleSchema = mongoose.Schema({
   publishedOn: String,
   content: String,
   image: String,
+  hash: String,
 });
 export const db = mongoose.createConnection("mongodb://localhost/myBlog", {
   useNewUrlParser: true,

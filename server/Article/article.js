@@ -21,7 +21,7 @@ export default function makeArticle({
 
   if (!_id) _id = generateId();
   if (!hash) hash = makeContentHash(content);
-  if (publishedOn) publishedOn = formatDate(publishedOn);
+  publishedOn = formatDate(publishedOn);
 
   return Object.freeze({
     _id: _id,

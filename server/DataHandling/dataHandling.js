@@ -1,3 +1,5 @@
+import articleDb from "../DbController/dbActions.js";
+import makeArticle from "../Article/article.js";
 /** NOTE
  * 1. get data from controller
  * 2. check data
@@ -5,11 +7,10 @@
  * 4. return data
  * 5. throw error(if)
  */
-import articleDb from "../DbController/dbActions.js";
 async function getArticleList() {
   try {
     const articleList = await articleDb.findAll();
-    return articleList;
+    return makeArticleList(articleList);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -19,6 +20,7 @@ async function getArticle(id) {
     if (!id) throw new Error("Can't find ID");
     const article = await articleDb.findById(id);
     if (!article) throw new Error("Article doesn't exist");
+    return makeArticle(article);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -27,9 +29,10 @@ async function saveArticle(body) {
   try {
     if (!body.title || !body.publishedOn || !body.content)
       throw new Error("Required information missing");
-    const posted = await articleDb.insert(body); // maybe format somehow
+    const article = makeArticle(body);
+    const posted = await articleDb.insert(article); // maybe format somehow
     if (!posted) throw new Error("Error on posting article");
-    return posted;
+    return makeArticle(posted);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -39,15 +42,12 @@ async function updateArticle(id, body) {
     if (!id) throw new Error("Can't find ID");
     if (!body.title && !body.content)
       throw new Error("Required information missing"); // missing only both of them. there might be updating only title or only content
-    const article = {
-      title: body.title,
-      publishedOn: body.publishedOn,
-      content: body.content,
-    }; // but it will have full information since it's updating based on previous data(client side)
-    // TODO need to format updating article
-    const updated = await articleDb(id, article);
+    const format = makeArticle(body);
+    const article = {...format}
+    delete article._id
+    const updated = await articleDb.update(id, article);
     if (!updated) throw new Error("Error on updating article");
-    return updated;
+    return makeArticle(updated);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -57,7 +57,7 @@ async function removeArticle(id) {
     if (!id) throw new Error("Can't find ID");
     const deleted = await articleDb.remove(id);
     if (!deleted) throw new Error("Error on deleting article");
-    return deleted;
+    return makeArticle(deleted);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -69,3 +69,7 @@ export {
   updateArticle,
   removeArticle,
 };
+function makeArticleList(list) {
+  const formatted = list.map((article) => makeArticle(article));
+  return formatted;
+}
