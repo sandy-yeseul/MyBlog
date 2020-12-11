@@ -28,7 +28,7 @@ async function get_articleList() {
     if (articles.length === 0) return { code: code.noContent, body: null };
     return { code: code.ok, body: articles };
   } catch (err) {
-    return { code: code.badRequest, body: err.message };
+    return { code: code.badRequest, body: err.message }; //FIXME body is not a json, need to format somehow json like {message: err.message}
   }
 }
 async function post_article(req) {

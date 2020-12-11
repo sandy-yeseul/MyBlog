@@ -30,7 +30,11 @@ async function saveArticle(body) {
     if (!body.title || !body.publishedOn || !body.content)
       throw new Error("Required information missing");
     const article = makeArticle(body);
-    const posted = await articleDb.insert(article); // maybe format somehow
+    const isTitleExist = await articleDb.findOne({ title: article.title });
+    if (isTitleExist) throw new Error("Title already exist");
+    const isContentDuplicate = await articleDb.findOne({ hash: article.hash });
+    if (isContentDuplicate) throw new Error("Content is duplicated");
+    const posted = await articleDb.insert(article);
     if (!posted) throw new Error("Error on posting article");
     return makeArticle(posted);
   } catch (err) {
@@ -43,8 +47,12 @@ async function updateArticle(id, body) {
     if (!body.title && !body.content)
       throw new Error("Required information missing"); // missing only both of them. there might be updating only title or only content
     const format = makeArticle(body);
-    const article = {...format}
-    delete article._id
+    const isTitleExist = await articleDb.findOne({title: format.title});
+    if(isTitleExist && isTitleExist._id !== id) throw new Error("Title already exist")
+    const isContentDuplicate = await articleDb.findOne({hash: format.hash});
+    if(isContentDuplicate && isContentDuplicate._id !== id) throw new Error("Content is duplicate")
+    const article = { ...format };
+    delete article._id;
     const updated = await articleDb.update(id, article);
     if (!updated) throw new Error("Error on updating article");
     return makeArticle(updated);

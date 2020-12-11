@@ -6,9 +6,9 @@ POST http://localhost:2020/api/articles HTTP/1.1
 content-type: application/json
 
 {
-    "title" : "from from from ",
+    "title" : "A have that ",
     "publishedOn" : "2020-01-01",
-    "content" : "to to to"
+    "content" : "landscape"
 }
 
 ###
@@ -23,7 +23,7 @@ content-type: application/json
 {
     "title" : "Don't stop the music",
     "publishedOn" : "2020-10-11",
-    "content" : "DJ DJ DJ PLZ DONT STOP THE MUZIK"
+    "content" : "landscape"
 }
 
 ###

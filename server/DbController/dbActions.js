@@ -3,7 +3,7 @@ import Article from "./db.js";
 
 async function findAll() {
   try {
-    const articles = await Article.find().select("-__v");
+    const articles = await Article.find();
     return articles;
   } catch (err) {
     console.log(err);
@@ -12,7 +12,7 @@ async function findAll() {
 }
 async function findAllCondtion(condition) {
   try {
-    const articles = await Article.find(condition).select("-__v");
+    const articles = await Article.find(condition);
     return articles;
   } catch (err) {
     console.log(err);
@@ -21,7 +21,7 @@ async function findAllCondtion(condition) {
 }
 async function findById(id) {
   try {
-    const article = await Article.findById(id).select("-__v");
+    const article = await Article.findById(id);
     return article;
   } catch (err) {
     console.log(err);
@@ -30,7 +30,7 @@ async function findById(id) {
 }
 async function findOne(condition) {
   try {
-    const article = await Article.findOne(condition).select("-__v");
+    const article = await Article.findOne(condition);
     return article;
   } catch (err) {
     console.log(err);
@@ -54,7 +54,7 @@ async function update(id, item) {
       id,
       { $set: item },
       options
-    ).select("-__v");
+    );
     return updatedArticle;
   } catch (err) {
     console.log(err);
@@ -63,7 +63,7 @@ async function update(id, item) {
 }
 async function remove(id) {
   try {
-    const removedArticle = await Article.findByIdAndDelete(id).select("-__v");
+    const removedArticle = await Article.findByIdAndDelete(id);
     return removedArticle;
   } catch (err) {
     console.log(err);
@@ -79,4 +79,4 @@ const articleDb = {
   update,
   remove,
 };
-export default articleDb
+export default articleDb;
