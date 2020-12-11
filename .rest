@@ -7,7 +7,7 @@ content-type: application/json
 
 {
     "title" : "from from from ",
-    "createdOn" : "2020-01-01",
+    "publishedOn" : "2020-01-01",
     "content" : "to to to"
 }
 
@@ -22,7 +22,7 @@ content-type: application/json
 
 {
     "title" : "Don't stop the music",
-    "createdOn" : "2020-10-11",
+    "publishedOn" : "2020-10-11",
     "content" : "DJ DJ DJ PLZ DONT STOP THE MUZIK"
 }
 

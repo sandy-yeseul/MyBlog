@@ -1,4 +1,4 @@
-/***
+/** NOTE
  * 1. get data from controller
  * 2. check data
  * 3. handle data
@@ -25,7 +25,7 @@ async function getArticle(id) {
 }
 async function saveArticle(body) {
   try {
-    if (!body.title || !body.createdOn || !body.content)
+    if (!body.title || !body.publishedOn || !body.content)
       throw new Error("Required information missing");
     const posted = await articleDb.insert(body); // maybe format somehow
     if (!posted) throw new Error("Error on posting article");
@@ -41,7 +41,7 @@ async function updateArticle(id, body) {
       throw new Error("Required information missing"); // missing only both of them. there might be updating only title or only content
     const article = {
       title: body.title,
-      createdOn: body.createdOn,
+      publishedOn: body.publishedOn,
       content: body.content,
     }; // but it will have full information since it's updating based on previous data(client side)
     // TODO need to format updating article

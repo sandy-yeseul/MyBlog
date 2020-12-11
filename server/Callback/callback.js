@@ -2,7 +2,7 @@ const responseHeaders = {
   "Content-Type": "application/json",
   "Last-Modified": new Date().toUTCString(),
 };
-/**
+/** NOTE
  * 1. get framework's request, format(extract) data and send to controller
  * 2. get result from controller, no determine, format response and send it
  * 3. if there's error, send error message(during the controller, but it should be caught and formatted to message)

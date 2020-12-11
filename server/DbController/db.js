@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 const articleSchema = mongoose.Schema({
+  _id: String,
   title: String,
-  createdOn: String,
+  publishedOn: String,
   content: String,
   image: String,
 });

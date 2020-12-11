@@ -15,7 +15,7 @@ const code = {
   notFound: 404,
   serverError: 500,
 };
-/**
+/** NOTE
  * 1. get request. extract necessary information and send to data handling
  * 2. get result(data) and check the result(whether acceptable, no content, error)
  * 3. based on the result, determine code and format return value with code and body
@@ -62,7 +62,7 @@ async function put_article(req) {
 async function delete_article(req) {
   try {
     const id = req.params.id;
-    const deleted = await removeArticle(..id);
+    const deleted = await removeArticle(id);
     return { code: code.ok, body: deleted };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
