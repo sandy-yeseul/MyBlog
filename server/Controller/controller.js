@@ -1,12 +1,28 @@
 import articleDb from "../DbController/dbActions.js";
-
+const code = {
+  ok: 200,
+  created: 201,
+  noContent: 204,
+  badRequest: 400,
+  unauthorized: 401,
+  forbidden: 403,
+  notFound: 404,
+  serverError: 500,
+};
+/**
+ * 1. get request. extract necessary information and send to data handling
+ * 2. get result(data) and check the result(whether acceptable, no content, error)
+ * 3. based on the result, determine code and format return value with code and body
+ * doing - no data handling, determine code based on result, format return value
+ * if there's error in data handling, accept it, format it to body(no throwing error, error is caught here), set code
+ */
 async function allArticles() {
   try {
     const articles = await articleDb.findAll();
-    if (articles.length === 0) return { code: 204, body: null };
-    return { code: 200, body: articles };
+    if (articles.length === 0) return { code: code.noContent, body: null };
+    return { code: code.ok, body: articles };
   } catch (err) {
-    return { code: 400, body: err.message };
+    return { code: code.badRequest, body: err.message };
   }
 }
 async function postArticle(req) {
@@ -15,9 +31,9 @@ async function postArticle(req) {
       throw new Error("Required information missing");
     const savedArticle = await articleDb.insert(req.body);
     if (!savedArticle) throw new Error("didn't saved?");
-    return { code: 201, body: savedArticle };
+    return { code: code.created, body: savedArticle };
   } catch (err) {
-    return { code: 400, body: err.message };
+    return { code: code.badRequest, body: err.message };
   }
 }
 async function anArticle(req) {
@@ -26,9 +42,9 @@ async function anArticle(req) {
     if (!id) throw new Error("Can't find ID");
     const article = await articleDb.findById(id);
     if (!article) throw new Error("Couldn't find");
-    return { code: 200, body: article };
+    return { code: code.ok, body: article };
   } catch (err) {
-    return { code: 400, body: err.message };
+    return { code: code.badRequest, body: err.message };
   }
 }
 async function updateArticle(req) {
@@ -44,9 +60,9 @@ async function updateArticle(req) {
     };
     const newArticle = await articleDb.update(id, article);
     if (!newArticle) throw new Error("Couldn't update");
-    return { code: 201, body: newArticle };
+    return { code: code.created, body: newArticle };
   } catch (err) {
-    return { code: 400, body: err.message };
+    return { code: code.badRequest, body: err.message };
   }
 }
 async function deleteArticle(req) {
@@ -55,9 +71,9 @@ async function deleteArticle(req) {
     if (!id) throw new Error("Can't find ID");
     const deleted = await articleDb.remove(id);
     if (!deleted) throw new Error("Error on deleting");
-    return { code: 200, body: deleted };
+    return { code: code.ok, body: deleted };
   } catch (err) {
-    return { code: 400, body: err.message };
+    return { code: code.badRequest, body: err.message };
   }
 }
 export { allArticles, anArticle, postArticle, updateArticle, deleteArticle };
