@@ -33,7 +33,8 @@ async function get_articleList() {
 }
 async function post_article(req) {
   try {
-    const saved = await saveArticle(req.body);
+    const body = req.body;
+    const saved = await saveArticle(body);
     return { code: code.created, body: saved };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
@@ -41,7 +42,8 @@ async function post_article(req) {
 }
 async function get_article(req) {
   try {
-    const article = await getArticle(req.params.id);
+    const id = req.params.id;
+    const article = await getArticle(id);
     return { code: code.ok, body: article };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
@@ -49,7 +51,9 @@ async function get_article(req) {
 }
 async function put_article(req) {
   try {
-    const updated = await updateArticle(req.params.id, req.body);
+    const id = req.params.id;
+    const body = req.body;
+    const updated = await updateArticle(id, body);
     return { code: code.created, body: updated };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
@@ -57,7 +61,8 @@ async function put_article(req) {
 }
 async function delete_article(req) {
   try {
-    const deleted = await removeArticle(req.params.id);
+    const id = req.params.id;
+    const deleted = await removeArticle(..id);
     return { code: code.ok, body: deleted };
   } catch (err) {
     return { code: code.badRequest, body: err.message };
