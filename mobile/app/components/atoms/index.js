@@ -1,5 +1,8 @@
-import Div from './Div';
-import P from './P';
-import Button from './Button';
+import Div from "./Div";
+import Text from "./Text";
+import Button from "./Button";
+import Image from "./Image";
+import ScrollDiv from "./ScrollDiv";
+import TextInput from "./TextInput";
 
-export {Div, P, Button}
+export { Div, Text, Button, Image, ScrollDiv, TextInput };
