@@ -17,6 +17,7 @@ const theme = {
 const Stack = createStackNavigator();
 const App = () => {
   return (
+    <List />
     // <NavigationContainer theme={theme}>
     //   <Stack.Navigator initialRouteName={""}>
     //     {/* Screens */}
@@ -48,7 +49,6 @@ const App = () => {
     //     />
     //   </Stack.Navigator>
     // </NavigationContainer>
-    <Landing />
   );
 };
 export default () => {
