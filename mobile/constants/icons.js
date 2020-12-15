@@ -1,4 +1,4 @@
-export const icon1 = require('../assets/icons')
-export default{
-    icon1
-}
+// export const icon1 = require('../assets/icons')
+// export default{
+//     icon1
+// }

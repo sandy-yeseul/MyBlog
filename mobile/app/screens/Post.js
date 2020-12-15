@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-export default Post = () => {
+export default () => {
     return (
         <View>
             <Text>Post Page</Text>
