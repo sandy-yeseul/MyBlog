@@ -17,37 +17,38 @@ const theme = {
 const Stack = createStackNavigator();
 const App = () => {
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator initialRouteName={""}>
-        {/* Screens */}
-        <Stack.Screen
-          name="Landing"
-          component={Landing}
-          options={{
-            title: null,
-            headerStyle: {
-              backgroundColor: COLORS.white,
-            },
-            headerLeft: null,
-            headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: SIZES.padding }}
-                onPress={() => console.log("Pressed")}
-              >
-                <Image
-                  source={images.splash}
-                  resizeMode="contain"
-                  style={{
-                    width: 25,
-                    height: 25,
-                  }}
-                />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer theme={theme}>
+    //   <Stack.Navigator initialRouteName={""}>
+    //     {/* Screens */}
+    //     <Stack.Screen
+    //       name="Landing"
+    //       component={Landing}
+    //       options={{
+    //         title: null,
+    //         headerStyle: {
+    //           backgroundColor: COLORS.white,
+    //         },
+    //         headerLeft: null,
+    //         headerRight: () => (
+    //           <TouchableOpacity
+    //             style={{ marginRight: SIZES.padding }}
+    //             onPress={() => console.log("Pressed")}
+    //           >
+    //             <Image
+    //               source={images.splash}
+    //               resizeMode="contain"
+    //               style={{
+    //                 width: 25,
+    //                 height: 25,
+    //               }}
+    //             />
+    //           </TouchableOpacity>
+    //         ),
+    //       }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <Landing />
   );
 };
 export default () => {
