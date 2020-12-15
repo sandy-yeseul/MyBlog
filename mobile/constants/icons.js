@@ -1,4 +1,3 @@
-// export const icon1 = require('../assets/icons')
-// export default{
-//     icon1
-// }
+// import AcUnitIcon from '@material-ui/icons/AcUnit';
+// export const logo = <AcUnitIcon />
+// export default {logo}
