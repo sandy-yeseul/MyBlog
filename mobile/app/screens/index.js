@@ -1,6 +1,6 @@
-import View from './View';
-import Post from './Post';
-import List from './List';
-import Landing from './Landing';
+import Show from "./Show";
+import Post from "./Post";
+import List from "./List";
+import Landing from "./Landing";
 
-export {View, Post, List, Landing}
+export { Show, Post, List, Landing };
