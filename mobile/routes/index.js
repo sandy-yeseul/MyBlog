@@ -7,7 +7,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 const LandingNavigator = () => {
   return (
-    <Navigator>
+    <Navigator initialRouteName="List">
       <Screen
         name="Landing"
         component={Landing}
