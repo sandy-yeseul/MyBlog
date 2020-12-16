@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Div, Text, List, ScrollDiv } from "../components/atoms";
+import { Div, Text, List, TouchOpacity } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
 export default ({ navigation }) => {
   const [list, setList] = useState([
@@ -15,19 +15,15 @@ export default ({ navigation }) => {
   return (
     <Div style={styles.container}>
       <List
-      style={styles.list}
+        style={styles.list}
         data={list}
         renderItem={({ item }) => (
-          <Div style={styles.card}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.date}>{item.PublishedOn}</Text>
-          </Div>
-          // <Text
-          // onPress={()=> navigation.navigate('Landing')}
-          // style={styles.item}
-          // >
-          //   {item.PublishedOn} :: {item.title}
-          // </Text>
+          <TouchOpacity onPress={() => navigation.push('List')}>
+            <Div style={styles.card}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.date}>{item.PublishedOn}</Text>
+            </Div>
+          </TouchOpacity>
         )}
       />
     </Div>
@@ -39,30 +35,22 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.SIZES.padding,
-    width: '100%',
-    backgroundColor: 'yellow'
+    padding: theme.SIZES.base,
   },
-  list:{
-    width: '100%'
+  list: {
+    width: "100%",
   },
   card: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: '100%',
-    backgroundColor: 'gray'
+    padding: theme.SIZES.padding,
   },
-  title:{
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    backgroundColor: 'black',
+  title: {
+    flex: 2,
   },
-  date:{
+  date: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'yellowgreen'
-  }
+  },
 });
