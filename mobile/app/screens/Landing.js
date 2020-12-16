@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 import { Button, Div, Image, Text, TextInput } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
 
-export default () => {
+export default ({navigation}) => {
   const [name, setName] = useState("LaLaLiLaLa");
   const updateNameHandler = () => {
-    setName("확신")
+    navigation.navigate('List')
   }
   return (
     <>

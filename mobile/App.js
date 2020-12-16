@@ -2,6 +2,7 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import Navigator from './routes'
 
 // screens
 import { Landing, Show, Post, List } from "./app/screens";
@@ -17,7 +18,7 @@ const theme = {
 const Stack = createStackNavigator();
 const App = () => {
   return (
-    <List />
+    <Navigator />
     // <NavigationContainer theme={theme}>
     //   <Stack.Navigator initialRouteName={""}>
     //     {/* Screens */}
