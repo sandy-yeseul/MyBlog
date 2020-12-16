@@ -1,47 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
-import { Button, Div, Image, Text, TextInput } from "../components/atoms";
+import { Text, TouchHighlight, BgImage } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
 
-export default ({navigation}) => {
-  const [name, setName] = useState("LaLaLiLaLa");
-  const updateNameHandler = () => {
-    navigation.navigate('List')
-  }
+export default ({ navigation }) => {
   return (
     <>
-      <Div style={styles.container}>
-        <Image source={images.favicon} />
-        <Text>Hello, {name}!</Text>
-        <Div style={styles.buttonContainer}>
-          <TextInput 
-          style={styles.textInput}
-          placeholder = "그런 밤이 있어"
-          value={name}
-          onChangeText = {(val) => setName(val)}
-           />
-          <Button title="update name" onPress={updateNameHandler} />
-        </Div>
-      </Div>
+      <TouchHighlight
+        style={styles.container}
+        onPress={() => navigation.navigate("List")}
+      >
+        <BgImage  style={styles.bgImage} source={images.landing}>
+          <Text style={styles.text}>i'm not ready</Text>
+        </BgImage >
+      </TouchHighlight>
     </>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    flexDirection: 'column',
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonContainer: {
-    marginTop: theme.SIZES.base,
-    alignItems: "center",
-    justifyContent: "flex-start",
+  bgImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: "100%",
+    height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  textInput: {
-    borderWidth: 1,
-    borderColor: COLORS.gray,
+  text:{
     padding: theme.SIZES.base,
-    width: 200
+    backgroundColor: 'white',
+    color: 'black'
   }
 });
