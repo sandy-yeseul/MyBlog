@@ -1,21 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Image, TouchableOpacity } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import Navigator from './routes'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+// screens
+import { Landing, Show, Post, List } from "./app/screens";
+import { COLORS, images, SIZES } from "./constants/index";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    border: "transparent",
   },
-});
+};
+const App = () => {
+  return (
+    <Navigator />
+    // <NavigationContainer theme={theme}>
+    //   <Stack.Navigator initialRouteName={""}>
+    //     {/* Screens */}
+    //     <Stack.Screen
+    //       name="Landing"
+    //       component={Landing}
+    //       options={{
+    //         title: null,
+    //         headerStyle: {
+    //           backgroundColor: COLORS.white,
+    //         },
+    //         headerLeft: null,
+    //         headerRight: () => (
+    //           <TouchableOpacity
+    //             style={{ marginRight: SIZES.padding }}
+    //             onPress={() => console.log("Pressed")}
+    //           >
+    //             <Image
+    //               source={images.splash}
+    //               resizeMode="contain"
+    //               style={{
+    //                 width: 25,
+    //                 height: 25,
+    //               }}
+    //             />
+    //           </TouchableOpacity>
+    //         ),
+    //       }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+  );
+};
+export default () => {
+  return <App />;
+};
