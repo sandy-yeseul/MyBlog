@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { Div, Text } from "../components/atoms";
 export default ({ route, navigation }) => {
+  // const {item} = route.params;
+  // console.log(item)
   const [Post, setPost] = useState({
     title: "Physical",
     publishedOn: "2019-09-08",

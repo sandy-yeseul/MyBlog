@@ -13,7 +13,7 @@ export default ({ navigation }) => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <TouchOpacity
-          // onPress={() => navigation.push("Detail")}
+          onPress={() => navigation.navigate('Detail', {item: item})}
           >
             <Card
               imageUri={item.image}
