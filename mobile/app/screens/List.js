@@ -1,28 +1,25 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, StyleSheet } from "react-native";
 import { Div, Text, List, TouchOpacity, Button } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
+import { Card } from "../components/molecules";
 export default ({ navigation }) => {
-  const [list, setList] = useState([
-    { key: "1", title: "1", PublishedOn: "2020-01-01" },
-    { key: "2", title: "style", PublishedOn: "2020-03-11" },
-    { key: "3", title: "What We want to do", PublishedOn: "2020-08-09" },
-    { key: "4", title: "Output", PublishedOn: "2020-01-20" },
-    { key: "8", title: "Flex", PublishedOn: "2020-10-18" },
-    { key: "71", title: "Messages", PublishedOn: "2020-12-21" },
-    { key: "18", title: "Star", PublishedOn: "2020-12-31" },
-  ]);
+  const [list, setList] = useState(sampleData());
   return (
     <Div style={styles.container}>
       <List
         style={styles.list}
         data={list}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <TouchOpacity onPress={() => navigation.push("Detail")}>
-            <Div style={styles.card}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.date}>{item.PublishedOn}</Text>
-            </Div>
+          <TouchOpacity
+          // onPress={() => navigation.push("Detail")}
+          >
+            <Card
+              imageUri={item.image}
+              title={item.title}
+              publishedOn={item.publishedOn}
+            />
           </TouchOpacity>
         )}
       />
@@ -41,17 +38,40 @@ const styles = StyleSheet.create({
   list: {
     width: "100%",
   },
-  card: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: theme.SIZES.padding,
-  },
-  title: {
-    flex: 2,
-  },
-  date: {
-    flex: 1,
-  },
 });
+const sampleData = () => {
+  return [
+    {
+      _id: "01076e0f643b43d48ff47409ab4a0366",
+      title: "from from from ",
+      publishedOn: "2020-01-01",
+      content: "to to to",
+      image: "https://picsum.photos/300",
+      hash: "c6ecb0a4551337a477e0b4115dd78da4",
+    },
+    {
+      _id: "ecbe36d419a946e2b4c28a3617247c81",
+      title: "Don't stop the music",
+      publishedOn: "2020-10-11",
+      content: "DJ DJ PLZ DONT STOP THE MUZIK",
+      image: "https://picsum.photos/300",
+      hash: "5e6d98cb6f2112c08230db7b69cf0c36",
+    },
+    {
+      _id: "43fed77c2af340e09e409bcf6b797fcb",
+      title: "from from from ",
+      publishedOn: "2020-01-01",
+      content: "to to to",
+      image: "https://picsum.photos/200/300",
+      hash: "c6ecb0a4551337a477e0b4115dd78da4",
+    },
+    {
+      _id: "6e22a4e46efc48a6b7671d7e357dad33",
+      title: "A have that ",
+      publishedOn: "2020-01-01",
+      content: "landscape",
+      image: "https://picsum.photos/200/300",
+      hash: "992763c3260eacff8cdc4c8bba147554",
+    },
+  ];
+};

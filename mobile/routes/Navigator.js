@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Landing">
+    <Navigator initialRouteName="List">
       <Screen
         name="Landing"
         component={Landing}
