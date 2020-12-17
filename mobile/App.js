@@ -15,7 +15,6 @@ const theme = {
     border: "transparent",
   },
 };
-const Stack = createStackNavigator();
 const App = () => {
   return (
     <Navigator />
