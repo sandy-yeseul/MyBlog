@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Div, Text, List, TouchOpacity } from "../components/atoms";
+import { Div, Text, List, TouchOpacity, Button } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
 export default ({ navigation }) => {
   const [list, setList] = useState([
@@ -18,7 +18,7 @@ export default ({ navigation }) => {
         style={styles.list}
         data={list}
         renderItem={({ item }) => (
-          <TouchOpacity onPress={() => navigation.push('Detail')}>
+          <TouchOpacity onPress={() => navigation.push("Detail")}>
             <Div style={styles.card}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.date}>{item.PublishedOn}</Text>
@@ -26,6 +26,7 @@ export default ({ navigation }) => {
           </TouchOpacity>
         )}
       />
+      <Button title="Post" onPress={() => navigation.navigate("Post")} />
     </Div>
   );
 };

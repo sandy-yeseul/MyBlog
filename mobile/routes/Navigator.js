@@ -2,12 +2,14 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Landing, List, Detail, Post } from "../app/screens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const { Navigator, Screen } = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const LandingNavigator = () => {
+const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Post">
+    <Navigator initialRouteName="Landing">
       <Screen
         name="Landing"
         component={Landing}
@@ -21,8 +23,19 @@ const LandingNavigator = () => {
     </Navigator>
   );
 };
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Landing" component={Landing} />
+      <Tab.Screen name="List" component={List} />
+      <Tab.Screen name="Detail" component={Detail} />
+      <Tab.Screen name="Post" component={Post} />
+    </Tab.Navigator>
+  );
+};
+
 export default () => (
   <NavigationContainer>
-    <LandingNavigator />
+    <StackNavigator />
   </NavigationContainer>
 );
