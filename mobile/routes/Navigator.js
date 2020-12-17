@@ -1,13 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { Landing, List } from "../app/screens";
+import { Landing, List, Show } from "../app/screens";
 
 const { Navigator, Screen } = createStackNavigator();
 
 const LandingNavigator = () => {
   return (
-    <Navigator initialRouteName="List">
+    <Navigator initialRouteName="Show">
       <Screen
         name="Landing"
         component={Landing}
@@ -16,6 +16,7 @@ const LandingNavigator = () => {
         }}
       />
       <Screen name="List" component={List} />
+      <Screen name="Show" component={Show} />
     </Navigator>
   );
 };

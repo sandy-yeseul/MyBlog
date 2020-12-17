@@ -18,7 +18,7 @@ export default ({ navigation }) => {
         style={styles.list}
         data={list}
         renderItem={({ item }) => (
-          <TouchOpacity onPress={() => navigation.push('List')}>
+          <TouchOpacity onPress={() => navigation.push('Show')}>
             <Div style={styles.card}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.date}>{item.PublishedOn}</Text>
