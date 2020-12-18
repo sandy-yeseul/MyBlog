@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { Div, Image, Text } from "../components/atoms";
-import {Title} from '../components/molecules'
+import {PublishedOn, Title} from '../components/molecules'
 import { theme } from "../../constants";
 export default ({ route, navigation }) => {
   const { id } = route.params;
@@ -31,7 +31,7 @@ export default ({ route, navigation }) => {
           </Div>
           <Div style={styles.textContainer}>
             <Title title={Post.title} />
-            <Text style={styles.date}>{Post.publishedOn}</Text>
+           <PublishedOn date={Post.publishedOn} />
             <Text style={styles.content}>{Post.content}</Text>
           </Div>
         </Div>
