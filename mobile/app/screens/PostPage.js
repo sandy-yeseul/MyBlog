@@ -1,51 +1,56 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { TextInput, StyleSheet } from "react-native";
 import { COLORS, theme } from "../../constants";
-import { Button } from "../components/atoms";
-export default () => {
-  const [value, setValue] = useState("");
+import { Button, Div } from "../components/atoms";
+export default ({navigation}) => {
+  const [Title, setTitle] = useState('');
+  const [Content, setContent] = useState('');
+  const submitHandler = async() =>{
+    const method = "POST";
+    const headers= {Accept: 'application/json', 'Content-Type': 'application/json'}
+    const body = JSON.stringify({
+      title: Title, 
+      publishedOn: new Date(), 
+      content: Content, 
+      image: "https://picsum.photos/300/200"});
+      const result = await fetch("http://192.168.124.64:2020/api/articles", {
+        method: method, headers: headers, body: body
+      })
+      const resJson = await result.json();
+      if(resJson._id) navigation.navigate('Detail', {id: resJson._id})
+  }
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Title</Text>
+    <Div style={styles.container}>
       <TextInput
-        style={styles.textInput}
-        value={value}
-        onChangeText={(text) => setValue(text)}
+        style={styles.title}
+        value={Title}
+        onChangeText={(text) => setTitle(text)}
         textContentType="emailAddress"
         placeholder="Title"
       />
-      {/*  no need
-      <Text style={styles.label}>Created Time</Text> 
       <TextInput
-        style={styles.textInput}
-        value={value}
-        onChangeText={(text) => setValue(text)}
-        keyboardType="number-pad" // NOTE: numeric is not working in iphone? number pad working
-        placeholder="created on date conversation but it's numeric pad"
-      /> */}
-      <Text style={styles.label}>Content</Text>
-      <TextInput
-        style={{ height: 100, borderColor: "gray", borderWidth: 1, width: 200 }}
-        value={value}
-        onChangeText={(text) => setValue(text)}
+        style={styles.content}
+        value={Content}
+        onChangeText={(text) => setContent(text)}
         multiline
         numberOfLines={4}
         placeholder="Content"
       />
+      <Div
+        style={styles.btn}>
       <Button
-        style={styles.Button}
         title="Submit"
-        onPress={() => console.log("submitted")}
-      />
-    </View>
+        onPress={submitHandler}
+      /></Div>
+    </Div>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     padding: theme.SIZES.base,
   },
   textInput: {
@@ -59,7 +64,21 @@ const styles = StyleSheet.create({
     paddingLeft: 90,
     paddingTop: theme.SIZES.padding,
   },
-  Button: {
-    margin: theme.SIZES.padding,
+  btn: {
+    marginTop: theme.SIZES.padding,
+    alignSelf: 'center'
   },
+  title:{
+    width: '100%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  content:{
+    width: '100%',
+    height: 300,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: theme.SIZES.padding
+  }
 });

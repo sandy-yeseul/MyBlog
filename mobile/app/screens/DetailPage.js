@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
-import { Div, Image, Text } from "../components/atoms";
+import { Button, Div, Image, Text } from "../components/atoms";
 import {PublishedOn, Title} from '../components/molecules'
 import { theme } from "../../constants";
 export default ({ route, navigation }) => {
@@ -34,6 +34,7 @@ export default ({ route, navigation }) => {
            <PublishedOn date={Post.publishedOn} />
             <Text style={styles.content}>{Post.content}</Text>
           </Div>
+          <Button title="Go Back List" onPress={()=>navigation.navigate('List')} />
         </Div>
       )}
     </>
