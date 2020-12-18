@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Div, List, TouchOpacity, Button } from "../components/atoms";
 import { COLORS, theme } from "../../constants";
-import { Card } from "../components/molecules";
+import {Card} from '../components/organisms'
 export default ({ navigation }) => {
   const ipAddrss = "192.168.124.64";
   const [list, setList] = useState();
