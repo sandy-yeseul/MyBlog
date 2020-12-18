@@ -1,32 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { Div, Text, List, TouchOpacity, Button } from "../components/atoms";
-import { COLORS, theme, images } from "../../constants";
+import { Div, List, TouchOpacity, Button } from "../components/atoms";
+import { COLORS, theme } from "../../constants";
+import { Card } from "../components/molecules";
 export default ({ navigation }) => {
-  const [list, setList] = useState([
-    { key: "1", title: "1", PublishedOn: "2020-01-01" },
-    { key: "2", title: "style", PublishedOn: "2020-03-11" },
-    { key: "3", title: "What We want to do", PublishedOn: "2020-08-09" },
-    { key: "4", title: "Output", PublishedOn: "2020-01-20" },
-    { key: "8", title: "Flex", PublishedOn: "2020-10-18" },
-    { key: "71", title: "Messages", PublishedOn: "2020-12-21" },
-    { key: "18", title: "Star", PublishedOn: "2020-12-31" },
-  ]);
+  const ipAddrss = "192.168.124.64";
+  const [list, setList] = useState();
+  const PostBtnHandler = async () => {};
+  const getData = async () => {
+    try {
+      const res = await fetch("http://192.168.124.64:2020/api/articles");
+      const resJson = await res.json();
+      const care = await formatData(resJson);
+      setList(care);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect( () => {
+    getData()
+  }, []);
   return (
     <Div style={styles.container}>
-      <List
-        style={styles.list}
-        data={list}
-        renderItem={({ item }) => (
-          <TouchOpacity onPress={() => navigation.push("Detail")}>
-            <Div style={styles.card}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.date}>{item.PublishedOn}</Text>
-            </Div>
-          </TouchOpacity>
-        )}
-      />
-      <Button title="Post" onPress={() => navigation.navigate("Post")} />
+      {list && (
+        <List
+          style={styles.list}
+          data={list}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <TouchOpacity
+              onPress={() => navigation.navigate("Detail", {id: item._id })}
+            >
+              <Card
+                imageUri={item.image}
+                title={item.title}
+                publishedOn={item.publishedOn}
+              />
+            </TouchOpacity>
+          )}
+        />
+      )}
+      <Button title="Post" onPress={PostBtnHandler} />
     </Div>
   );
 };
@@ -41,17 +55,12 @@ const styles = StyleSheet.create({
   list: {
     width: "100%",
   },
-  card: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: theme.SIZES.padding,
-  },
-  title: {
-    flex: 2,
-  },
-  date: {
-    flex: 1,
-  },
 });
+const formatData = (list) => {
+  const sample = [...list];
+  const bitten = sample.map((item) => {
+    if (!item.image) item.image = "https://picsum.photos/300";
+    return item;
+  });
+  return bitten;
+};

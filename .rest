@@ -6,9 +6,10 @@ POST http://localhost:2020/api/articles HTTP/1.1
 content-type: application/json
 
 {
-    "title" : "A have that ",
-    "publishedOn" : "2020-01-01",
-    "content" : "landscape"
+    "title" : "Love sick girls",
+    "publishedOn" : "2020-10-01",
+    "content" : "but we'll still looking for love",
+    "image" : "https://picsum.photos/300"
 }
 
 ###
@@ -23,7 +24,8 @@ content-type: application/json
 {
     "title" : "Don't stop the music",
     "publishedOn" : "2020-10-11",
-    "content" : "landscape"
+    "content" : "landscape",
+    "image" : "https://picsum.photos/300"
 }
 
 ###
