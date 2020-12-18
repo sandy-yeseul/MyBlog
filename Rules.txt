@@ -1,0 +1,7 @@
+entrie Rules:
+    1. id, title, publishedOn, content are mandatory field
+    2. image is mandatory too, but if user leaves blink, it will get random image from https://picsum.photos
+    3. id, title, content must be unique
+    4. image must be unique within the post(no duplicate pics)
+    5. published on should follow ISO 8601(yyyy-mm-dd hh:mm:ss) format
+    

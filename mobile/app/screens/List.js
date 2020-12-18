@@ -1,37 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { Image, StyleSheet } from "react-native";
-import { Div, Text, List, TouchOpacity, Button } from "../components/atoms";
-import { COLORS, theme, images } from "../../constants";
+import { StyleSheet } from "react-native";
+import { Div, List, TouchOpacity, Button } from "../components/atoms";
+import { COLORS, theme } from "../../constants";
 import { Card } from "../components/molecules";
 export default ({ navigation }) => {
-  const ipAddrss ="192.168.124.64"
-  const [list, setList] = useState(sampleData());
-  const getData =async()=>{
-    fetch("http://192.168.124.64:2020/api/articles")
-    .then(res => res.json())
-    // .then(res => setList(res)) ANCHOR work!!!
-    .then(res=>console.log(res))
-    .catch(err => console.log(err))
-  }
+  const ipAddrss = "192.168.124.64";
+  const [list, setList] = useState();
+  const PostBtnHandler = async () => {};
+  const getData = async () => {
+    try {
+      const res = await fetch("http://192.168.124.64:2020/api/articles");
+      const resJson = await res.json();
+      const care = await formatData(resJson);
+      setList(care);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect( () => {
+    getData()
+  }, []);
   return (
     <Div style={styles.container}>
-      <List
-        style={styles.list}
-        data={list}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
-          <TouchOpacity
-          onPress={() => navigation.navigate('Detail', {item: item})}
-          >
-            <Card
-              imageUri={item.image}
-              title={item.title}
-              publishedOn={item.publishedOn}
-            />
-          </TouchOpacity>
-        )}
-      />
-      <Button title="Post" onPress={getData} />
+      {list && (
+        <List
+          style={styles.list}
+          data={list}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <TouchOpacity
+              onPress={() => navigation.navigate("Detail", {id: item._id })}
+            >
+              <Card
+                imageUri={item.image}
+                title={item.title}
+                publishedOn={item.publishedOn}
+              />
+            </TouchOpacity>
+          )}
+        />
+      )}
+      <Button title="Post" onPress={PostBtnHandler} />
     </Div>
   );
 };
@@ -47,39 +56,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
-const sampleData = () => {
-  return [
-    {
-      _id: "01076e0f643b43d48ff47409ab4a0366",
-      title: "from from from ",
-      publishedOn: "2020-01-01",
-      content: "to to to",
-      image: "https://picsum.photos/300",
-      hash: "c6ecb0a4551337a477e0b4115dd78da4",
-    },
-    {
-      _id: "ecbe36d419a946e2b4c28a3617247c81",
-      title: "Don't stop the music",
-      publishedOn: "2020-10-11",
-      content: "DJ DJ PLZ DONT STOP THE MUZIK",
-      image: "https://picsum.photos/300",
-      hash: "5e6d98cb6f2112c08230db7b69cf0c36",
-    },
-    {
-      _id: "43fed77c2af340e09e409bcf6b797fcb",
-      title: "from from from ",
-      publishedOn: "2020-01-01",
-      content: "to to to",
-      image: "https://picsum.photos/200/300",
-      hash: "c6ecb0a4551337a477e0b4115dd78da4",
-    },
-    {
-      _id: "6e22a4e46efc48a6b7671d7e357dad33",
-      title: "A have that ",
-      publishedOn: "2020-01-01",
-      content: "landscape",
-      image: "https://picsum.photos/200/300",
-      hash: "992763c3260eacff8cdc4c8bba147554",
-    },
-  ];
+const formatData = (list) => {
+  const sample = [...list];
+  const bitten = sample.map((item) => {
+    if (!item.image) item.image = "https://picsum.photos/300";
+    return item;
+  });
+  return bitten;
 };
