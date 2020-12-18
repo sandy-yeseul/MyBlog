@@ -8,7 +8,8 @@ content-type: application/json
 {
     "title" : "Love sick girls",
     "publishedOn" : "2020-10-01",
-    "content" : "but we'll still looking for love"
+    "content" : "but we'll still looking for love",
+    "image" : "https://picsum.photos/300"
 }
 
 ###
@@ -23,7 +24,8 @@ content-type: application/json
 {
     "title" : "Don't stop the music",
     "publishedOn" : "2020-10-11",
-    "content" : "landscape"
+    "content" : "landscape",
+    "image" : "https://picsum.photos/300"
 }
 
 ###

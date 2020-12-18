@@ -9,7 +9,8 @@ export default ({ navigation }) => {
   const getData =async()=>{
     fetch("http://192.168.124.64:2020/api/articles")
     .then(res => res.json())
-    // .then(res => setList(res))
+    // .then(res => setList(res)) ANCHOR work!!!
+    .then(res=>console.log(res))
     .catch(err => console.log(err))
   }
   return (
