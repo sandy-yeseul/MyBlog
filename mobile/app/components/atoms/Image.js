@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 export default (props) => {
-    return <Image {...props} style={styles.image} resizeMode="contain" />
+    return <Image {...props} style={styles.image} resizeMode={props.resizeMode || `contain`} />
 }
 const styles =StyleSheet.create({
     image:{
