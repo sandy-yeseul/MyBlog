@@ -26,7 +26,7 @@ export default ({ route, navigation }) => {
       {Post && (
         <Div style={styles.container}>
           <Div style={styles.imageContainer}>
-            <Image source={{ uri: Post.image }} style={styles.image} />
+            <Image source={{ uri: Post.image }} />
           </Div>
           <Div style={styles.textContainer}>
             <Text style={styles.title}>{Post.title}</Text>
@@ -40,7 +40,7 @@ export default ({ route, navigation }) => {
 };
 const formatData = (article) => {
   const _article = { ...article };
-  if (!_article.image) _article.image = "https://picsum.photos/300";
+  if (!_article.image) _article.image = "https://picsum.photos/300/200";
   return _article;
 };
 const styles = StyleSheet.create({
@@ -73,9 +73,5 @@ const styles = StyleSheet.create({
   content: {
     flex: 4,
     paddingTop: theme.SIZES.padding,
-  },
-  image: {
-    width: "100%",
-    height: '100%',
   },
 });
