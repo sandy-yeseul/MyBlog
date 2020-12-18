@@ -6,7 +6,7 @@ import {Card} from '../components/organisms'
 export default ({ navigation }) => {
   const ipAddrss = "192.168.124.64";
   const [list, setList] = useState();
-  const PostBtnHandler = async () => {};
+  const PostBtnHandler = async () => {navigation.navigate('Post')};
   const getData = async () => {
     try {
       const res = await fetch("http://192.168.124.64:2020/api/articles");
