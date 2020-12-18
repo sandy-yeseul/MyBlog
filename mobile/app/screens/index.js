@@ -1,6 +1,6 @@
-import Post from "./Post"; 
-import List from "./List";
-import Landing from "./Landing";
-import Detail from './Detail';
+import Post from "./PostPage"; 
+import List from "./ListPage";
+import Landing from "./LandingPage";
+import Detail from './DetailPage';
 
 export { Post, List, Landing, Detail };

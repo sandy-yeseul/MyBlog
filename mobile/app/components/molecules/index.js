@@ -1,3 +1,6 @@
-import Card from './Card';
+import Card from "./Card";
+import Title from "./Title";
+import CardCvImg from "./CardCvImg";
+import PublishedOn from "./PublishedOn";
 
-export {Card}
+export { Card, Title, CardCvImg, PublishedOn };

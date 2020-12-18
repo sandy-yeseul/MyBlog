@@ -5,7 +5,6 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Navigator from './routes'
 
 // screens
-import { Landing, Show, Post, List } from "./app/screens";
 import { COLORS, images, SIZES } from "./constants/index";
 
 const theme = {
