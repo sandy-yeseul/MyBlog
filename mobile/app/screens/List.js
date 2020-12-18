@@ -4,7 +4,14 @@ import { Div, Text, List, TouchOpacity, Button } from "../components/atoms";
 import { COLORS, theme, images } from "../../constants";
 import { Card } from "../components/molecules";
 export default ({ navigation }) => {
+  const ipAddrss ="192.168.124.64"
   const [list, setList] = useState(sampleData());
+  const getData =async()=>{
+    fetch("http://192.168.124.64:2020/api/articles")
+    .then(res => res.json())
+    // .then(res => setList(res))
+    .catch(err => console.log(err))
+  }
   return (
     <Div style={styles.container}>
       <List
@@ -23,7 +30,7 @@ export default ({ navigation }) => {
           </TouchOpacity>
         )}
       />
-      <Button title="Post" onPress={() => navigation.navigate("Post")} />
+      <Button title="Post" onPress={getData} />
     </Div>
   );
 };
