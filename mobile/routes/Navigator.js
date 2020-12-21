@@ -10,13 +10,13 @@ const Tab = createBottomTabNavigator();
 const StackNavigator = () => {
   return (
     <Navigator initialRouteName="List">
-      <Screen
+      {/* <Screen
         name="Landing"
         component={Landing}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <Screen name="List" component={List} />
       <Screen name="Detail" component={Detail} />
       <Screen name="Post" component={Post} />
