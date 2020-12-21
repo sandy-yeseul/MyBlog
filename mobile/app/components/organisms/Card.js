@@ -7,7 +7,7 @@ import { CardCvImg, PublishedOn } from "../molecules";
 export default ({ imageUri, title, publishedOn }) => {
   return (
     <Div>
-      <CardCvImg imageUri={imageUri} />
+      <CardCvImg imageUri={imageUri} resizeMode="cover" />
       <Div style={styles.textField}>
         <Text style={styles.title}>{title}</Text>
         <PublishedOn date={publishedOn} />

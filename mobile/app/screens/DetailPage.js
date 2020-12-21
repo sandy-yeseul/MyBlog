@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
-import { Button, Div, Image, Text } from "../components/atoms";
-import {PublishedOn, Title} from '../components/molecules'
+import { Button, Div, Image, Text, ScrollDiv} from "../components/atoms";
+import {CardCvImg, PublishedOn, Title} from '../components/molecules'
 import { theme } from "../../constants";
 export default ({ route, navigation }) => {
   const { id } = route.params;
@@ -25,17 +25,15 @@ export default ({ route, navigation }) => {
   return (
     <>
       {Post && (
-        <Div style={styles.container}>
-          <Div style={styles.imageContainer}>
-            <Image source={{ uri: Post.image }} />
-          </Div>
+        <ScrollDiv style={styles.container}>
+          <CardCvImg imageUri={Post.image} />
           <Div style={styles.textContainer}>
             <Title title={Post.title} />
            <PublishedOn date={Post.publishedOn} />
             <Text style={styles.content}>{Post.content}</Text>
           </Div>
           <Button title="Go Back List" onPress={()=>navigation.navigate('List')} />
-        </Div>
+        </ScrollDiv>
       )}
     </>
   );
@@ -49,12 +47,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    justifyContent: "center",
-    alignItems: "flex-start",
   },
   imageContainer: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   textContainer: {
     flex: 1,
