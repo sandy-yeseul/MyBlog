@@ -7,5 +7,5 @@ export default (props) => {
   return <Text style={styles.title}>{title}</Text>;
 };
 const styles = StyleSheet.create({
-  title: { flex: 1, fontWeight: "600", fontSize: 35 },
+  title: { flex: 1, fontWeight: "bold", fontSize: 35 },
 });

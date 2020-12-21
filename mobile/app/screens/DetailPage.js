@@ -32,9 +32,9 @@ export default ({ route, navigation }) => {
            <PublishedOn date={Post.publishedOn} />
             <Text style={styles.content}>{Post.content}</Text>
           </Div>
-          <Button title="Go Back List" onPress={()=>navigation.navigate('List')} />
         </ScrollDiv>
       )}
+      <Button title="Go Back List" onPress={()=>navigation.navigate('List')} />
     </>
   );
 };
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     padding: theme.SIZES.base,
+    marginTop: theme.SIZES.padding
   },
   title: {
     flex: 1,
