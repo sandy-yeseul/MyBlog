@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.SIZES.base,
+    width: '100%'
   },
   list: {
     width: "100%",

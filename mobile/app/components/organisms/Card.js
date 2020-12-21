@@ -20,21 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    margin: theme.SIZES.base,
-    borderRadius: theme.SIZES.radius,
-    borderRightWidth: 2,
-    borderBottomWidth: 1,
-    borderLeftWidth: 0.5,
-    borderColor: "gray",
-  },
-  imageField: {
-    width: "100%",
-    height: 150,
-    borderTopLeftRadius: theme.SIZES.radius,
-    borderTopRightRadius: theme.SIZES.radius,
-    overflow: 'hidden'
   },
   textField: { flexDirection: "row", padding: theme.SIZES.base },
   title: { flex: 2, fontSize: 20, fontWeight: "bold" },
-  
 });

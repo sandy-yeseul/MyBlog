@@ -14,9 +14,7 @@ export default (props) => {
 const styles = StyleSheet.create({
   imageContainer: {
     width: "100%",
-    height: 150,
-    borderTopLeftRadius: theme.SIZES.radius,
-    borderTopRightRadius: theme.SIZES.radius,
+    height: theme.SIZES.height * 0.3 ,
     overflow: "hidden",
   },
 });
