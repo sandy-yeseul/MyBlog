@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { Div, List, TouchOpacity, Button } from "../components/atoms";
+import {
+  Div,
+  List,
+  TouchOpacity,
+  Button,
+} from "../components/atoms";
 import { COLORS, theme } from "../../constants";
-import {Card} from '../components/organisms'
+import { Card } from "../components/organisms";
 export default ({ navigation }) => {
   const ipAddrss = "192.168.124.64";
   const [list, setList] = useState();
-  const PostBtnHandler = async () => {navigation.navigate('Post')};
+  const [refreshing, setRefreshing] = useState(false);
+  const PostBtnHandler = async () => {
+    navigation.navigate("Post");
+  };
   const getData = async () => {
     try {
       const res = await fetch("http://192.168.124.64:2020/api/articles");
@@ -17,8 +25,12 @@ export default ({ navigation }) => {
       console.log(err);
     }
   };
-  useEffect( () => {
-    getData()
+  const onRefresh = async () => {
+    setRefreshing(true);
+    getData().then(setRefreshing(false))
+  };
+  useEffect(() => {
+    getData();
   }, []);
   return (
     <Div style={styles.container}>
@@ -27,9 +39,11 @@ export default ({ navigation }) => {
           style={styles.list}
           data={list}
           keyExtractor={(item) => item._id}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
           renderItem={({ item }) => (
             <TouchOpacity
-              onPress={() => navigation.navigate("Detail", {id: item._id })}
+              onPress={() => navigation.navigate("Detail", { id: item._id })}
             >
               <Card
                 imageUri={item.image}
@@ -62,5 +76,5 @@ const formatData = (list) => {
     if (!item.image) item.image = "https://picsum.photos/300";
     return item;
   });
-  return bitten;
+  return bitten.reverse();
 };
