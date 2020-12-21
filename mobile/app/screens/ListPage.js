@@ -33,7 +33,7 @@ export default ({ navigation }) => {
     getData();
   }, []);
   return (
-    <>
+    <Div style={styles.container}>
       {list && (
         <List
           style={styles.list}
@@ -56,7 +56,7 @@ export default ({ navigation }) => {
         />
       )}
       <Button title="Post" onPress={PostBtnHandler} />
-      </>
+    </Div>
   );
 };
 const styles = StyleSheet.create({
