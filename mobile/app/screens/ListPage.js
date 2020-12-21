@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import {
-  Div,
-  List,
-  TouchOpacity,
-  Button,
-} from "../components/atoms";
+import { Div, List, TouchOpacity, Button } from "../components/atoms";
 import { COLORS, theme } from "../../constants";
 import { Card } from "../components/organisms";
+import { ImageUploader } from "../components/molecules";
 export default ({ navigation }) => {
   const ipAddrss = "192.168.124.64";
   const [list, setList] = useState();
@@ -27,7 +23,7 @@ export default ({ navigation }) => {
   };
   const onRefresh = async () => {
     setRefreshing(true);
-    getData().then(setRefreshing(false))
+    getData().then(setRefreshing(false));
   };
   useEffect(() => {
     getData();
@@ -43,7 +39,7 @@ export default ({ navigation }) => {
           onRefresh={onRefresh}
           renderItem={({ item }) => (
             <TouchOpacity
-            style={styles.card}
+              style={styles.card}
               onPress={() => navigation.navigate("Detail", { id: item._id })}
             >
               <Card
@@ -56,6 +52,7 @@ export default ({ navigation }) => {
         />
       )}
       <Button title="Post" onPress={PostBtnHandler} />
+      <ImageUploader />
     </Div>
   );
 };
@@ -65,14 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
-    width: '100%'
+    width: "100%",
   },
   list: {
     width: "100%",
   },
   card: {
-    marginBottom: theme.SIZES.padding
-  }
+    marginBottom: theme.SIZES.padding,
+  },
 });
 const formatData = (list) => {
   const sample = [...list];
