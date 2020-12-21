@@ -6,7 +6,7 @@ import { CardCvImg, PublishedOn } from "../molecules";
 
 export default ({ imageUri, title, publishedOn }) => {
   return (
-    <Div style={styles.card}>
+    <Div>
       <CardCvImg imageUri={imageUri} />
       <Div style={styles.textField}>
         <Text style={styles.title}>{title}</Text>
@@ -16,11 +16,8 @@ export default ({ imageUri, title, publishedOn }) => {
   );
 };
 const styles = StyleSheet.create({
-  card: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+  textField: {
+    padding: theme.SIZES.base,
   },
-  textField: { flexDirection: "row", padding: theme.SIZES.base },
-  title: { flex: 2, fontSize: 20, fontWeight: "bold" },
+  title: { fontSize: 22, fontWeight: "bold", alignSelf: "flex-start" },
 });

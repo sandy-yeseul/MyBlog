@@ -33,7 +33,7 @@ export default ({ navigation }) => {
     getData();
   }, []);
   return (
-    <Div style={styles.container}>
+    <>
       {list && (
         <List
           style={styles.list}
@@ -43,6 +43,7 @@ export default ({ navigation }) => {
           onRefresh={onRefresh}
           renderItem={({ item }) => (
             <TouchOpacity
+            style={styles.card}
               onPress={() => navigation.navigate("Detail", { id: item._id })}
             >
               <Card
@@ -55,7 +56,7 @@ export default ({ navigation }) => {
         />
       )}
       <Button title="Post" onPress={PostBtnHandler} />
-    </Div>
+      </>
   );
 };
 const styles = StyleSheet.create({
@@ -69,6 +70,9 @@ const styles = StyleSheet.create({
   list: {
     width: "100%",
   },
+  card: {
+    marginBottom: theme.SIZES.padding
+  }
 });
 const formatData = (list) => {
   const sample = [...list];

@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "../atoms";
 import { StyleSheet } from "react-native";
 export default (props) => {
-  const { date } = props;
+  const date = formatDate(props.date);
   return <Text style={styles.date}>{date}</Text>;
 };
 const styles = StyleSheet.create({
@@ -11,3 +11,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
 });
+const formatDate = (date) => {
+  const withoutTime = date.split(' ');
+  return withoutTime[0]
+}
