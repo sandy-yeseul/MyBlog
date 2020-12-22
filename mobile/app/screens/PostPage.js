@@ -7,25 +7,46 @@ export default ({ navigation }) => {
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const uriToBlob = async() =>{
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response)
+      };
+      xhr.onerror = function(){
+        reject(new Error("uriToBlob failed"))
+      };
+      xhr.responseType = "blob";
+      xhr.open('GET', image, true);
+      xhr.send(null)
+    })
+  }
   const submitHandler = async () => {
-    const method = "POST";
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    const body = JSON.stringify({
-      title: Title,
-      publishedOn: new Date(),
-      content: Content,
-      image: "https://picsum.photos/300/200",
-    });
-    const result = await fetch("http://192.168.124.64:2020/api/articles", {
-      method: method,
-      headers: headers,
-      body: body,
-    });
-    const resJson = await result.json();
-    if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
+    try{
+      const imageBlob =  await uriToBlob();
+      const formData = new FormData();
+      formData.append('title', Title);
+      formData.append('content', Content);
+      formData.append('publishedOn', new Date());
+      formData.append('image', imageBlob);
+      const body = JSON.stringify({
+        title: Title,
+        publishedOn: new Date(),
+        content: Content,
+        image: 'http://',
+      });
+      const result = await fetch("http://192.168.124.64:2020/api/articles", {
+        method: "POST",
+        body: formData,
+      });
+      const resJson = await result.json();
+      // if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
+      console.log(resJson)
+    }
+    catch(err){
+      console.log(err)
+    }
+    
   };
   return (
     <DismissKeyboard>

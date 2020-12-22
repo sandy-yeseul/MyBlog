@@ -15,14 +15,13 @@ export default (props) => {
   };
   const pickImage = async () => {
     const permission = await isPermitted();
-    if (permission) {
+    if (permission) {0.
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
         aspect: [4, 3],
         quality: 1,
       });
-      console.log(result);
       if (!result.canceled) setImage(result.uri);
     } else {
       alert("sorry! need permission");
