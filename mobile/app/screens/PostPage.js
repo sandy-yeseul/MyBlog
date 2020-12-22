@@ -2,47 +2,54 @@ import React, { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 import { COLORS, theme } from "../../constants";
 import { Button, Div } from "../components/atoms";
-export default ({navigation}) => {
-  const [Title, setTitle] = useState('');
-  const [Content, setContent] = useState('');
-  const submitHandler = async() =>{
+import { ImageUploader, DismissKeyboard } from "../components/molecules";
+export default ({ navigation }) => {
+  const [Title, setTitle] = useState("");
+  const [Content, setContent] = useState("");
+  const [image, setImage] = useState(null);
+  const submitHandler = async () => {
     const method = "POST";
-    const headers= {Accept: 'application/json', 'Content-Type': 'application/json'}
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
     const body = JSON.stringify({
-      title: Title, 
-      publishedOn: new Date(), 
-      content: Content, 
-      image: "https://picsum.photos/300/200"});
-      const result = await fetch("http://192.168.124.64:2020/api/articles", {
-        method: method, headers: headers, body: body
-      })
-      const resJson = await result.json();
-      if(resJson._id) navigation.navigate('Detail', {id: resJson._id})
-  }
+      title: Title,
+      publishedOn: new Date(),
+      content: Content,
+      image: "https://picsum.photos/300/200",
+    });
+    const result = await fetch("http://192.168.124.64:2020/api/articles", {
+      method: method,
+      headers: headers,
+      body: body,
+    });
+    const resJson = await result.json();
+    if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
+  };
   return (
-    <Div style={styles.container}>
-      <TextInput
-        style={styles.title}
-        value={Title}
-        onChangeText={(text) => setTitle(text)}
-        textContentType="emailAddress"
-        placeholder="Title"
-      />
-      <TextInput
-        style={styles.content}
-        value={Content}
-        onChangeText={(text) => setContent(text)}
-        multiline
-        numberOfLines={4}
-        placeholder="Content"
-      />
-      <Div
-        style={styles.btn}>
-      <Button
-        title="Submit"
-        onPress={submitHandler}
-      /></Div>
-    </Div>
+    <DismissKeyboard>
+      <Div style={styles.container}>
+        <TextInput
+          style={styles.title}
+          value={Title}
+          onChangeText={(text) => setTitle(text)}
+          placeholder="Title"
+        />
+        <TextInput
+          style={styles.content}
+          value={Content}
+          onChangeText={(text) => setContent(text)}
+          multiline
+          numberOfLines={4}
+          placeholder="Content"
+        />
+        <ImageUploader setImage={setImage} />
+        <Div style={styles.btn}>
+          <Button title="Submit" onPress={submitHandler} />
+        </Div>
+      </Div>
+    </DismissKeyboard>
   );
 };
 const styles = StyleSheet.create({
@@ -66,19 +73,19 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginTop: theme.SIZES.padding,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
-  title:{
-    width: '100%',
+  title: {
+    width: "100%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
   },
-  content:{
-    width: '100%',
+  content: {
+    width: "100%",
     height: 300,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
-    marginTop: theme.SIZES.padding
-  }
+    marginTop: theme.SIZES.padding,
+  },
 });

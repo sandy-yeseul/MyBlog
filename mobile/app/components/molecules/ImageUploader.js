@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Platform } from "react-native";
-import { Button, Div, Image } from "../atoms";
+import { Button } from "../atoms";
 
 export default (props) => {
-  const [image, setImage] = useState(null);
+  const {setImage} = props
   const isPermitted = async () => {
     let permitted = false;
     if (Platform.OS !== "web") {
-      const {
-        status,
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status === "granted") permitted = true;
     }
     return permitted;
@@ -33,9 +31,6 @@ export default (props) => {
   return (
     <>
       <Button title="Pick image" onPress={pickImage} />
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
     </>
   );
 };
