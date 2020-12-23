@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import multer from "multer";
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
 import callback from "./Callback/callback.js";
 import {
   get_articleList,
@@ -35,4 +38,9 @@ app.get("/api/articles/:id", callback(get_article));
 app.put("/api/articles/:id", callback(put_article));
 app.delete("/api/articles/:id", callback(delete_article));
 
+
+const https_opt = {
+  key: fs.readFileSync('../keys/mkcert+5-key.pem'),
+  
+}
 app.listen(2020, () => console.log("Blog is running on port 2020"));
