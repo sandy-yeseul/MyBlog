@@ -44,8 +44,6 @@ export default ({ navigation }) => {
     try {
       const url = "http://192.168.124.64:2020/api/articles";
       
-      const filename = getFilename(image);
-      const imageBlob = await getImageBlob()
       const publishedOn = new Date();
 
       const fd = new FormData();
@@ -55,6 +53,8 @@ export default ({ navigation }) => {
 
 
 
+      const filename = getFilename(image);
+      const imageBlob = await getImageBlob()
       fd.append('image', imageBlob, filename)
 
       // const xhr = new XMLHttpRequest();
