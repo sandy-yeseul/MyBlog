@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import axios from 'axios';
 import { TextInput, StyleSheet } from "react-native";
 import { COLORS, theme } from "../../constants";
 import { Button, Div } from "../components/atoms";
@@ -7,57 +8,76 @@ export default ({ navigation }) => {
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
   const [image, setImage] = useState(null);
-  const uriToBlob = async() =>{
+  const uriToBlob = async () => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response)
+      xhr.onload = function () {
+        resolve(xhr.response);
       };
-      xhr.onerror = function(){
-        reject(new Error("uriToBlob failed"))
+      xhr.onerror = function () {
+        reject(new Error("uriToBlob failed"));
       };
       xhr.responseType = "blob";
-      xhr.open('GET', image, true);
-      xhr.send(null)
-    })
-  }
-  const getImageBlob = async() =>{
-    try{
+      xhr.open("GET", image, true);
+      xhr.send(null);
+    });
+  };
+  const getImageBlob = async () => {
+    try {
       const response = await fetch(image);
       const blob = await response.blob();
       return blob;
-    }catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
   const getFilename = (image) => {
-    const filename = image.split('/').pop();
-    return filename
-  }
-  const getType = async(filename) =>{
-    const match = filename.split('.');
-    const type = match?  `image/${match[1]}` : `image`;
-    return type
-  }
+    const filename = image.split("/").pop();
+    return filename;
+  };
+  const getType = async (filename) => {
+    const match = filename.split(".");
+    const type = match ? `image/${match[1]}` : `image`;
+    return type;
+  };
   const submitHandler = async () => {
-    try{
-      // const filename = getFilename(image);
-      // const imageBlob = await getImageBlob()
-      const publishedOn = new Date();
+    try {
+      const url = "http://192.168.124.64:2020/api/articles";
       
+      const filename = getFilename(image);
+      const imageBlob = await getImageBlob()
+      const publishedOn = new Date();
+
       const fd = new FormData();
-      fd.append('title', Title);
-      fd.append('publishedOn', publishedOn);
-      fd.append('content', Content);
-      // fd.append('image', imageBlob, filename)
-      const config={
+      fd.append("title", Title);
+      fd.append("publishedOn", publishedOn);
+      fd.append("content", Content);
+
+
+
+      fd.append('image', imageBlob, filename)
+
+      // const xhr = new XMLHttpRequest();
+      // xhr.open('POST', url);
+      // xhr.send(fd)
+      // xhr.onreadystatechange = e =>{
+      //   if(xhr.readyState !== 4) return;
+      //   if(xhr.status === 201) console.log('success', xhr.responseText);
+      //   else console.log('error', xhr.response)
+      // }
+
+      const config = {
         method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
+        },
         body: fd,
-      }
+      };
       fetch("http://192.168.124.64:2020/api/articles", config)
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => console.error(err))
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
 
       // const imageBlob =  await uriToBlob();
       // const formData = new FormData();
@@ -78,11 +98,9 @@ export default ({ navigation }) => {
       // const resJson = await result.json();
       // // if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
       // console.log(resJson)
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-    
   };
   return (
     <DismissKeyboard>
