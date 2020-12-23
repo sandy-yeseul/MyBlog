@@ -30,4 +30,4 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:2020/api/articles/136e946c71b64fa4bf17d41efdc66336 HTTP/1.1
+DELETE http://localhost:2020/api/articles/f47db500520d474588064a574e016acb HTTP/1.1

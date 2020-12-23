@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import axios from 'axios';
+import axios from 'axios';
 import { TextInput, StyleSheet } from "react-native";
 import { COLORS, theme } from "../../constants";
 import { Button, Div } from "../components/atoms";
@@ -53,9 +53,9 @@ export default ({ navigation }) => {
 
 
 
-      const filename = getFilename(image);
-      const imageBlob = await getImageBlob()
-      fd.append('image', imageBlob, filename)
+      // const filename = getFilename(image);
+      // const imageBlob = await getImageBlob()
+      // fd.append('image', imageBlob, filename)
 
       // const xhr = new XMLHttpRequest();
       // xhr.open('POST', url);
@@ -67,17 +67,21 @@ export default ({ navigation }) => {
       // }
 
       const config = {
+        url: url,
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
           Accept: "*/*",
         },
-        body: fd,
+        data: fd,
       };
-      fetch("http://192.168.124.64:2020/api/articles", config)
-        .then((res) => res.json())
-        .then((res) => console.log(res))
-        .catch((err) => console.error(err));
+      // fetch("http://192.168.124.64:2020/api/articles", config)
+      //   .then((res) => res.json())
+      //   .then((res) => console.log(res))
+      //   .catch((err) => console.error(err));
+
+      const result = await axios(config);
+      console.log(result)
 
       // const imageBlob =  await uriToBlob();
       // const formData = new FormData();
