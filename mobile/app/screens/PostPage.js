@@ -21,27 +21,63 @@ export default ({ navigation }) => {
       xhr.send(null)
     })
   }
+  const getImageBlob = async() =>{
+    try{
+      const response = await fetch(image);
+      const blob = await response.blob();
+      return blob;
+    }catch(err){
+      console.log(err)
+    }
+  }
+  const getFilename = (image) => {
+    const filename = image.split('/').pop();
+    return filename
+  }
+  const getType = async(filename) =>{
+    const match = filename.split('.');
+    const type = match?  `image/${match[1]}` : `image`;
+    return type
+  }
   const submitHandler = async () => {
     try{
-      const imageBlob =  await uriToBlob();
-      const formData = new FormData();
-      formData.append('title', Title);
-      formData.append('content', Content);
-      formData.append('publishedOn', new Date());
-      formData.append('image', imageBlob);
-      const body = JSON.stringify({
-        title: Title,
-        publishedOn: new Date(),
-        content: Content,
-        image: 'http://',
-      });
-      const result = await fetch("http://192.168.124.64:2020/api/articles", {
+      // const filename = getFilename(image);
+      // const imageBlob = await getImageBlob()
+      const publishedOn = new Date();
+      
+      const fd = new FormData();
+      fd.append('title', Title);
+      fd.append('publishedOn', publishedOn);
+      fd.append('content', Content);
+      // fd.append('image', imageBlob, filename)
+      const config={
         method: "POST",
-        body: formData,
-      });
-      const resJson = await result.json();
-      // if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
-      console.log(resJson)
+        body: fd,
+      }
+      fetch("http://192.168.124.64:2020/api/articles", config)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
+
+      // const imageBlob =  await uriToBlob();
+      // const formData = new FormData();
+      // formData.append('title', Title);
+      // formData.append('content', Content);
+      // formData.append('publishedOn', new Date());
+      // formData.append('image', imageBlob);
+      // const body = JSON.stringify({
+      //   title: Title,
+      //   publishedOn: new Date(),
+      //   content: Content,
+      //   image: 'http://',
+      // });
+      // const result = await fetch("http://192.168.124.64:2020/api/articles", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // const resJson = await result.json();
+      // // if (resJson._id) navigation.navigate("Detail", { id: resJson._id });
+      // console.log(resJson)
     }
     catch(err){
       console.log(err)

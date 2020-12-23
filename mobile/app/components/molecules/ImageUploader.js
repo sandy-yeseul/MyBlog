@@ -11,18 +11,20 @@ export default (props) => {
       const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status === "granted") permitted = true;
     }
+    if(Platform.OS === "web") permitted = true;
     return permitted;
   };
   const pickImage = async () => {
     const permission = await isPermitted();
-    if (permission) {0.
-      let result = await ImagePicker.launchImageLibraryAsync({
+    if (permission) {
+      let {cancelled, uri} = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: false,
         aspect: [4, 3],
         quality: 1,
       });
-      if (!result.canceled) setImage(result.uri);
+      console.log(uri)
+      if (!cancelled) setImage(uri);
     } else {
       alert("sorry! need permission");
     }

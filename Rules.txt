@@ -5,3 +5,8 @@ entrie Rules:
     4. image must be unique within the post(no duplicate pics)
     5. published on should follow ISO 8601(yyyy-mm-dd hh:mm:ss) format
     
+file URI
+format
+    file://host/path
+    file:/path
+    file:///path
