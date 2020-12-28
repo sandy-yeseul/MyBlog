@@ -6,6 +6,7 @@ import multer from "multer";
 import https from 'https';
 import http from 'http';
 import fs from 'fs';
+// import selfsigned from 'selfsigned';
 import callback from "./Callback/callback.js";
 import {
   get_articleList,
@@ -39,8 +40,9 @@ app.put("/api/articles/:id", callback(put_article));
 app.delete("/api/articles/:id", callback(delete_article));
 
 
-const https_opt = {
-  key: fs.readFileSync('../keys/mkcert+5-key.pem'),
-  
-}
+
+// selfsigned.generate(null, {days: 30}, (err, pems) =>{
+//   if(err) console.log(err)
+//   console.log(pems.private)
+// })
 app.listen(2020, () => console.log("Blog is running on port 2020"));
